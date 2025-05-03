@@ -1,0 +1,129 @@
+/* Custom styles for the book reader application */
+
+/* General Styles */
+body {
+  font-family: 'Georgia', serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.reader-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Typography */
+#chapter-content {
+  font-family: 'Georgia', serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #713f12; /* amber-900 */
+}
+
+.dark #chapter-content {
+  color: #fef3c7; /* amber-100 */
+}
+
+/* Loading Animation */
+.loader {
+  border: 5px solid rgba(251, 191, 36, 0.2); /* amber-400 with opacity */
+  border-radius: 50%;
+  border-top: 5px solid #f59e0b; /* amber-500 */
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Book Card Animation */
+.book-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Chapter List Animation */
+.chapter-item {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateX(-20px);
+}
+
+.chapter-item.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Chapter Content Animation */
+#chapter-content {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+#chapter-content.fade-in {
+  opacity: 1;
+}
+
+/* Reading Progress Bar */
+#progress-container {
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+#progress-bar {
+  transition: width 0.1s ease;
+}
+
+/* Theme transition */
+.dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Reading Experience Enhancements */
+@media (min-width: 768px) {
+  #chapter-content {
+    font-size: 1.25rem;
+    padding: 0 2rem;
+  }
+  
+  #chapter-content p:first-of-type::first-letter {
+    font-size: 3.5rem;
+    font-family: 'Times New Roman', serif;
+    float: left;
+    line-height: 0.8;
+    margin-right: 0.5rem;
+    color: #b45309; /* amber-700 */
+  }
+  
+  .dark #chapter-content p:first-of-type::first-letter {
+    color: #fbbf24; /* amber-400 */
+  }
+}
+
+/* Page turn animation */
+.page-turn-enter {
+  opacity: 0;
+  transform: translateX(20px) rotateY(30deg);
+}
+
+.page-turn-enter-active {
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.page-turn-exit {
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+}
+
+.page-turn-exit-active {
+  opacity: 0;
+  transform: translateX(-20px) rotateY(-30deg);
+  transition: opacity 500ms, transform 500ms;
+}

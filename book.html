@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Chapters</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/boltnew@latest/dist/boltnew.js"></script>
+</head>
+<body class="bg-amber-50 dark:bg-gray-900 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <a href="index.html" class="inline-block mb-4 text-amber-700 dark:text-amber-300 hover:text-amber-900 dark:hover:text-amber-100 transition-colors">
+        ← Back to Library
+      </a>
+      <h1 id="book-title" class="text-4xl font-serif font-bold text-amber-900 dark:text-amber-100">Book Title</h1>
+      <div class="flex items-center mt-2 text-amber-700 dark:text-amber-300">
+        <span class="mr-2">作者:</span>
+        <span class="font-semibold">FeynmanXie</span>
+        <span class="mx-3">|</span>
+        <span id="created-date" class="text-amber-600 dark:text-amber-400"></span>
+      </div>
+      <p class="text-lg text-amber-700 dark:text-amber-300 mt-2">Chapter list</p>
+      <button id="theme-toggle" class="mt-4 bg-amber-100 dark:bg-gray-800 px-4 py-2 rounded-full text-amber-900 dark:text-amber-100 hover:bg-amber-200 dark:hover:bg-gray-700 transition-colors">
+        <span id="theme-icon">🌙</span> <span id="theme-text">Dark mode</span>
+      </button>
+    </header>
+    
+    <div id="loading" class="text-center py-20">
+      <div class="loader mx-auto"></div>
+      <p class="mt-4 text-amber-800 dark:text-amber-200">Loading chapters...</p>
+    </div>
+    
+    <div id="error-container" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+      <strong class="font-bold">Error!</strong>
+      <span id="error-message" class="block sm:inline"> Unable to load book chapters.</span>
+    </div>
+    
+    <div id="chapters-container" class="hidden">
+      <ul class="divide-y divide-amber-200 dark:divide-gray-700">
+        <!-- Chapters will be dynamically added here -->
+      </ul>
+    </div>
+    
+    <footer class="mt-12 text-center text-amber-700 dark:text-amber-300 text-sm">
+      <p>© 2025 Book Library - Created and designed <em>FeynmanXie</em> - Powered by Supabase and MongoDB</p>
+    </footer>
+  </div>
+
+  <script type="module" src="js/chapter-list.js"></script>
+</body>
+</html>

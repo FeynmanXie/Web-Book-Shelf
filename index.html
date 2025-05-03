@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Library</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <!-- Move boltnew.js to head to ensure it loads first -->
+  <script src="https://cdn.jsdelivr.net/npm/boltnew@latest/dist/boltnew.js"></script>
+</head>
+<body class="bg-amber-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8 text-center">
+      <h1 class="text-4xl font-serif font-bold text-amber-900 dark:text-amber-100">My Book Library</h1>
+      <p class="text-lg text-amber-700 dark:text-amber-300 mt-2">Explore your collection</p>
+    </header>
+    
+    <div id="loading" class="text-center py-20">
+      <div class="loader mx-auto"></div>
+      <p class="mt-4 text-amber-800 dark:text-amber-200">Loading your book collection...</p>
+    </div>
+    
+    <div id="error-container" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+      <strong class="font-bold">Error!</strong>
+      <span id="error-message" class="block sm:inline"> Unable to load the book database.</span>
+    </div>
+    
+    <div id="books-container" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Books will be dynamically added here -->
+    </div>
+    
+    <footer class="mt-12 text-center text-amber-700 dark:text-amber-300 text-sm">
+      <p>© 2025 Book Library - Created and designed <em>FeynmanXie</em> - Powered by Supabase and MongoDB</p>
+    </footer>
+  </div>
+
+  <!-- Load other scripts after boltnew.js -->
+  <script src="js/utils.js"></script>
+  <script type="module" src="js/book-list.js"></script>
+</body>
+</html>

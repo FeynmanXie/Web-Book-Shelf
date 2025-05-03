@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter Content</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/boltnew@latest/dist/boltnew.js"></script>
+</head>
+<body class="bg-amber-50 min-h-screen">
+  <div class="container mx-auto px-4 py-8 reader-container">
+    <header class="mb-8">
+      <div class="flex justify-between items-center">
+        <a id="back-to-chapters" href="book.html" class="inline-block mb-4 text-amber-700 hover:text-amber-900 transition-colors">
+          ← Back to Chapters
+        </a>
+      </div>
+      <h1 id="chapter-title" class="text-3xl font-serif font-bold text-amber-900">Chapter Title</h1>
+      <div class="flex items-center mt-2 mb-4">
+        <span class="text-amber-700 mr-2">Author: FeynmanXie</span>
+        <span class="author-info text-amber-700"></span>
+        <span class="mx-3 text-amber-700">|</span>
+        <span class="creation-date text-amber-600"></span>
+      </div>
+    </header>
+    
+    <div id="loading" class="text-center py-20">
+      <div class="loader mx-auto"></div>
+      <p class="mt-4 text-amber-800">Loading chapter content...</p>
+    </div>
+    
+    <div id="error-container" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
+      <strong class="font-bold">Error!</strong>
+      <span id="error-message" class="block sm:inline"> Unable to load chapter content.</span>
+    </div>
+    
+    <div id="chapter-content" class="hidden prose prose-amber max-w-none">
+      <!-- Chapter content will be dynamically added here -->
+    </div>
+    
+    <div id="navigation" class="mt-8 flex justify-between">
+      <button id="prev-chapter" class="bg-amber-100 px-4 py-2 rounded-lg text-amber-900 hover:bg-amber-200 disabled:opacity-50 disabled:cursor-not-allowed">
+        Previous Chapter
+      </button>
+      <button id="next-chapter" class="bg-amber-100 px-4 py-2 rounded-lg text-amber-900 hover:bg-amber-200 disabled:opacity-50 disabled:cursor-not-allowed">
+        Next Chapter
+      </button>
+    </div>
+    
+    <div id="progress-container" class="hidden fixed bottom-0 left-0 w-full h-1 bg-amber-200">
+      <div id="progress-bar" class="h-full bg-amber-600"></div>
+    </div>
+    
+    <footer class="mt-12 text-center text-amber-700 text-sm">
+      <p>© 2025 Book Library - Created and designed <em>FeynmanXie</em> - Powered by Supabase and MongoDB</p>
+    </footer>
+  </div>
+  <script type="module" src="js/chapter-view.js"></script>
+</body>
+</html>
