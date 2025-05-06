@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
   <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-4xl">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">📘 管理章节</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">📘 Manage Chapters</h1>
 
     <form id="chapter-form" class="space-y-4 mb-6">
       <div>
@@ -32,11 +32,11 @@
       <div>
         <label class="block text-sm font-medium text-gray-700">Cover Image URL (Optional)</label>
         <input type="url" name="coverUrl" placeholder="https://..." class="mt-1 p-2 border border-gray-300 rounded w-full" />
-        <button type="button" id="set-cover-btn" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">📅 设置为书的封面</button>
+        <button type="button" id="set-cover-btn" class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">📅 Set as Book Cover</button>
       </div>
 
       <button type="submit" class="bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700">
-        ➕ 添加章节
+        ➕ Add Chapter
       </button>
     </form>
 
@@ -48,8 +48,8 @@
           <th class="px-2 py-1">Book ID</th>
           <th class="px-2 py-1">Chapter ID</th>
           <th class="px-2 py-1">Title</th>
-          <th class="px-2 py-1">创建时间</th>
-          <th class="px-2 py-1">操作</th>
+          <th class="px-2 py-1">Created Date</th>
+          <th class="px-2 py-1">Actions</th>
         </tr>
       </thead>
       <tbody id="chapter-table" class="divide-y"></tbody>
@@ -60,13 +60,13 @@
     const SUPABASE_URL = 'YOUR_SUPABASE_URL';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
-    // 页面加载完成后加载章节列表
+    // Load the chapter list when the page is loaded
     document.addEventListener('DOMContentLoaded', () => {
       loadChapters();
       setupFormSubmission();
     });
 
-    // 加载所有章节数据
+    // Load all chapter data
     async function loadChapters() {
       try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/chapters?select=*&order=book_id.asc,chapter_id.asc`, {
@@ -77,31 +77,31 @@
         });
 
         if (!response.ok) {
-          throw new Error(`状态码: ${response.status}`);
+          throw new Error(`Status code: ${response.status}`);
         }
 
         const chapters = await response.json();
         displayChapters(chapters);
       } catch (error) {
-        console.error('加载章节失败:', error);
+        console.error('Failed to load chapters:', error);
         document.getElementById('chapter-table').innerHTML = `
           <tr>
             <td colspan="5" class="px-4 py-3 text-center text-red-500">
-              加载章节数据失败: ${error.message}
+              Failed to load chapter data: ${error.message}
             </td>
           </tr>
         `;
       }
     }
 
-    // 在表格中显示章节数据
+    // Display chapter data in the table
     function displayChapters(chapters) {
       const tableBody = document.getElementById('chapter-table');
       
       if (chapters.length === 0) {
         tableBody.innerHTML = `
           <tr>
-            <td colspan="5" class="px-4 py-3 text-center">暂无章节数据</td>
+            <td colspan="5" class="px-4 py-3 text-center">No chapter data available</td>
           </tr>
         `;
         return;
@@ -118,24 +118,24 @@
               class="bg-red-500 text-white px-2 py-1 rounded text-xs delete-btn" 
               data-book="${chapter.book_id}" 
               data-chapter="${chapter.chapter_id}">
-              删除
+              Delete
             </button>
           </td>
         </tr>
       `).join('');
 
-      // 为删除按钮添加事件监听器
+      // Add event listeners to delete buttons
       document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', handleDelete);
       });
     }
 
-    // 处理删除章节
+    // Handle chapter deletion
     async function handleDelete(e) {
       const bookId = e.target.dataset.book;
       const chapterId = e.target.dataset.chapter;
       
-      if (!confirm(`确定删除书籍 "${bookId}" 的章节 "${chapterId}"?`)) {
+      if (!confirm(`Are you sure you want to delete chapter "${chapterId}" from book "${bookId}"?`)) {
         return;
       }
       
@@ -152,19 +152,19 @@
         );
         
         if (response.ok) {
-          // 重新加载章节列表
+          // Reload chapter list
           loadChapters();
-          document.getElementById('result').textContent = `✅ 成功删除章节`;
+          document.getElementById('result').textContent = `✅ Chapter deleted successfully`;
         } else {
-          throw new Error(`状态码: ${response.status}`);
+          throw new Error(`Status code: ${response.status}`);
         }
       } catch (error) {
-        console.error('删除章节失败:', error);
-        document.getElementById('result').textContent = `❌ 删除失败: ${error.message}`;
+        console.error('Failed to delete chapter:', error);
+        document.getElementById('result').textContent = `❌ Delete failed: ${error.message}`;
       }
     }
 
-    // 设置表单提交处理
+    // Set up form submission handling
     function setupFormSubmission() {
       document.getElementById('chapter-form').addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -176,7 +176,7 @@
           title: formData.get('title'),
           content: formData.get('content'),
           cover_url: formData.get('coverUrl') || null,
-          created_at: new Date().toISOString() // 自动设置当前时间为创建时间
+          created_at: new Date().toISOString() // Automatically set current time as creation time
         };
         
         try {
@@ -192,27 +192,27 @@
           
           if (!response.ok) {
             const errorText = await response.text();
-            throw new Error(`状态码: ${response.status}, ${errorText}`);
+            throw new Error(`Status code: ${response.status}, ${errorText}`);
           }
           
-          // 清空表单并重新加载章节列表
+          // Clear form and reload chapter list
           e.target.reset();
           loadChapters();
-          document.getElementById('result').textContent = `✅ 成功添加章节`;
+          document.getElementById('result').textContent = `✅ Chapter added successfully`;
         } catch (error) {
-          console.error('添加章节失败:', error);
-          document.getElementById('result').textContent = `❌ 添加失败: ${error.message}`;
+          console.error('Failed to add chapter:', error);
+          document.getElementById('result').textContent = `❌ Add failed: ${error.message}`;
         }
       });
     }
 
     document.getElementById('set-cover-btn').addEventListener('click', async () => {
       const bookId = document.querySelector('[name=book_id]').value.trim();
-      if (!bookId) return alert('请先输入 Book ID');
+      if (!bookId) return alert('Please enter Book ID');
 
       let coverUrl = document.querySelector('[name=coverUrl]').value.trim();
       if (!coverUrl) {
-        // 自动提取第一章封面
+        // Automatically extract first chapter cover
         const res = await fetch(`${SUPABASE_URL}/rest/v1/chapters?book_id=eq.${encodeURIComponent(bookId)}&order=chapter_id.asc&limit=1`, {
           headers: {
             apikey: SUPABASE_ANON_KEY,
@@ -223,7 +223,7 @@
         coverUrl = data?.[0]?.cover_url || 'https://flowbite.com/docs/images/examples/image-3@2x.jpg';
       }
 
-      // 更新 books 表中封面字段
+      // Update books table cover field
       const updateRes = await fetch(`${SUPABASE_URL}/rest/v1/books?book_id=eq.${encodeURIComponent(bookId)}`, {
         method: 'PATCH',
         headers: {
@@ -235,11 +235,11 @@
       });
 
       const text = await updateRes.text();
-      console.log('封面设置结果:', text);
+      console.log('Cover set result:', text);
       if (updateRes.ok) {
-        alert('✅ 成功设置为封面');
+        alert('✅ Cover set successfully');
       } else {
-        alert('❌ 设置失败：' + text);
+        alert('❌ Set failed: ' + text);
       }
     });
   </script>
